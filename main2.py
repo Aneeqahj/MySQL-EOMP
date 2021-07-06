@@ -26,9 +26,9 @@ home_label = Label(top_frame, text="LC", font="Arial 15", bg=color["purple"], fg
 home_label.pack(side="right")
 
 # more labels
-username = Label(window, text="Username:", bg=color["lilac"])
+username = Label(window, text="Username:", bg=color["lilac"], fg=color["purple"])
 username.place(x=20, y=100)
-password = Label(window, text="Password:", bg=color["lilac"])
+password = Label(window, text="Password:", bg=color["lilac"], fg=color["purple"])
 password.place(x=20, y=150)
 
 # Entries
@@ -46,13 +46,13 @@ def login():
             con = mysql.connector(user="lifechoices", password="@Lifechoices1234", host="127.0.0.1",
                                   database="LifeChoicesOnline")
             cur = con.cursor()
-            cur.execute("select * from register where username=%$ and password=%$", username_ent.get(),
+            cur.execute("select * from Registration where username=%$ and password=%$", username_ent.get(),
                         password_ent.get())
             row = cur.fetchone()
             if row == None:
                 messagebox.showerror("ERROR", "Invalid Username or Password", parent=window)
             else:
-                import success.py
+                import success
                 con.close()
         except Exception as es:
             messagebox.showerror("ERROR", "Error Due to : {str(es)}", parent=window)

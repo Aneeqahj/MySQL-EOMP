@@ -3,7 +3,7 @@ from tkinter import messagebox
 import mysql.connector
 
 window = Tk()
-window.geometry("400x600")
+window.geometry("400x800")
 window.title("LifeChoices Online")
 window.resizable("false", "false")
 window.config(bg="#dea5e6")
@@ -25,12 +25,24 @@ home_label = Label(top_frame, text="LC", font="Arial 15", bg=color["purple"], fg
 home_label.pack(side="right")
 
 # more labels
-username = Label(window, text="Username:", bg=color["lilac"])
+username = Label(window, text="Username:", bg=color["lilac"], fg=color["purple"])
 username.place(x=20, y=100)
-password = Label(window, text="Password:", bg=color["lilac"])
+password = Label(window, text="Password:", bg=color["lilac"], fg=color["purple"])
 password.place(x=20, y=150)
-email = Label(window, text="Email:", bg=color["lilac"])
+email = Label(window, text="Email:", bg=color["lilac"], fg=color["purple"])
 email.place(x=20, y=200)
+name = Label(window, text="Name:", bg=color["lilac"], fg=color["purple"])
+name.place(x=20, y=250)
+surname = Label(window, text="Surname:", bg=color["lilac"], fg=color["purple"])
+surname.place(x=20, y=300)
+idnum = Label(window, text="ID Number:", bg=color["lilac"], fg=color["purple"])
+idnum.place(x=20, y=350)
+phoneNum = Label(window, text="Phone Number:", bg=color["lilac"], fg=color["purple"])
+phoneNum.place(x=20, y=400)
+Nameofkin = Label(window, text="Next of kin Name:", bg=color["lilac"], fg=color["purple"])
+Nameofkin.place(x=20, y=450)
+Numofkin = Label(window, text="Next of kin PhoneNumber:", bg=color["lilac"], fg=color["purple"])
+Numofkin.place(x=20, y=500)
 
 # Entries
 username_ent = Entry(window)
@@ -62,18 +74,17 @@ def register():
     pass
 
 
-
 register = Button(window, text="Register", width="30", bg=color["lilac"], activebackground=color["lightpurple"],
                   border=0,
                   highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"],
                   command=register)
-register.place(x=60, y=350)
+register.place(x=60, y=550)
 exit_btn = Button(window, text="Exit", width="30", bg=color["lilac"], activebackground=color["lightpurple"], border=0,
                   highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"],
                   command=exit_btn)
-exit_btn.place(x=60, y=450)
+exit_btn.place(x=60, y=650)
 back = Button(window, text="Back", width="30", bg=color["lilac"], activebackground=color["lightpurple"], border=0,
               highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"],
               command=back)
-back.place(x=60, y=550)
+back.place(x=60, y=750)
 window.mainloop()
