@@ -86,7 +86,7 @@ def register():
     print(user_id[0])
 
     sql = "INSERT INTO Registration(email, name, surname, IDnumber, phoneNumber, NextOfKinName, " \
-          "NextOfKinNumber, user_id) \n VALUES(%s,%s,%s,%s,%s,%s,%s) "
+          "NextOfKinNumber, user_id) \n VALUES(%s,%s,%s,%s,%s,%s,%s,%s) "
     value = (
         email_ent.get(), name_ent.get(), surname_ent.get(), idnum_ent.get(),
         phoneNum_ent.get(), Nameofkin.get(), Numofkin.get(), user_id[0])
