@@ -39,23 +39,7 @@ password_ent.place(x=200, y=150)
 
 
 def login():
-    if username_ent.get() == "" or password_ent.get == "":
-        messagebox.showerror("ERROR", "Please ensure that all fields are filled in")
-    else:
-        try:
-            con = mysql.connector(user="lifechoices", password="@Lifechoices1234", host="127.0.0.1",
-                                  database="LifeChoicesOnline")
-            cur = con.cursor()
-            cur.execute("select * from Registration where username=%$ and password=%$", username_ent.get(),
-                        password_ent.get())
-            row = cur.fetchone()
-            if row == None:
-                messagebox.showerror("ERROR", "Invalid Username or Password", parent=window)
-            else:
-                import success
-                con.close()
-        except Exception as es:
-            messagebox.showerror("ERROR", "Error Due to : {str(es)}", parent=window)
+    pass
 
 
 def exit_btn():

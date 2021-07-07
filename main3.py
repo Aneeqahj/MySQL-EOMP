@@ -25,32 +25,37 @@ home_label = Label(top_frame, text="LC", font="Arial 15", bg=color["purple"], fg
 home_label.pack(side="right")
 
 # more labels
-username = Label(window, text="Username:", bg=color["lilac"], fg=color["purple"])
-username.place(x=20, y=100)
-password = Label(window, text="Password:", bg=color["lilac"], fg=color["purple"])
-password.place(x=20, y=150)
+
+name = Label(window, text="Name:", bg=color["lilac"], fg=color["purple"])
+name.place(x=20, y=100)
+surname = Label(window, text="Surname:", bg=color["lilac"], fg=color["purple"])
+surname.place(x=20, y=150)
 email = Label(window, text="Email:", bg=color["lilac"], fg=color["purple"])
 email.place(x=20, y=200)
-name = Label(window, text="Name:", bg=color["lilac"], fg=color["purple"])
-name.place(x=20, y=250)
-surname = Label(window, text="Surname:", bg=color["lilac"], fg=color["purple"])
-surname.place(x=20, y=300)
 idnum = Label(window, text="ID Number:", bg=color["lilac"], fg=color["purple"])
-idnum.place(x=20, y=350)
+idnum.place(x=20, y=250)
 phoneNum = Label(window, text="Phone Number:", bg=color["lilac"], fg=color["purple"])
-phoneNum.place(x=20, y=400)
+phoneNum.place(x=20, y=300)
 Nameofkin = Label(window, text="Next of kin Name:", bg=color["lilac"], fg=color["purple"])
-Nameofkin.place(x=20, y=450)
+Nameofkin.place(x=20, y=350)
 Numofkin = Label(window, text="Next of kin PhoneNumber:", bg=color["lilac"], fg=color["purple"])
-Numofkin.place(x=20, y=500)
+Numofkin.place(x=20, y=400)
 
 # Entries
-username_ent = Entry(window)
-username_ent.place(x=200, y=100)
-password_ent = Entry(window, show="*")
-password_ent.place(x=200, y=150)
+name_ent = Entry(window)
+name_ent.place(x=200, y=100)
+surname_ent = Entry(window)
+surname_ent.place(x=200, y=150)
 email_ent = Entry(window)
 email_ent.place(x=200, y=200)
+idnum_ent = Entry(window)
+idnum_ent.place(x=200, y=250)
+phoneNum_ent = Entry(window)
+phoneNum_ent.place(x=200, y=300)
+Nameofkin = Entry(window)
+Nameofkin.place(x=200, y=350)
+Numofkin = Entry(window)
+Numofkin.place(x=200, y=400)
 
 
 def exit_btn():
@@ -71,20 +76,37 @@ def back():
 
 
 def register():
-    pass
+    mydb = mysql.connector.connect(user="lifechoices", password="@Lifechoices1234",
+                                   host="127.0.0.1", database="LifeChoicesOnline",
+                                   auth_plugin="mysql_native_password")
+    mycursor = mydb.cursor()
+    select = "SELECT user_id FROM Login"
+    user_id = mycursor.execute(select)
+    user_id = mycursor.fetchone()
+    print(user_id[0])
+
+    sql = "INSERT INTO Registration(email, name, surname, IDnumber, phoneNumber, NextOfKinName, " \
+          "NextOfKinNumber, user_id) \n VALUES(%s,%s,%s,%s,%s,%s,%s) "
+    value = (
+        email_ent.get(), name_ent.get(), surname_ent.get(), idnum_ent.get(),
+        phoneNum_ent.get(), Nameofkin.get(), Numofkin.get(), user_id[0])
+    exe = mycursor.execute(sql, value)
+    mydb.commit()
+
+    mycursor.execute("Select * from Registration")
 
 
 register = Button(window, text="Register", width="30", bg=color["lilac"], activebackground=color["lightpurple"],
                   border=0,
                   highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"],
                   command=register)
-register.place(x=60, y=550)
+register.place(x=60, y=500)
 exit_btn = Button(window, text="Exit", width="30", bg=color["lilac"], activebackground=color["lightpurple"], border=0,
                   highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"],
                   command=exit_btn)
-exit_btn.place(x=60, y=650)
+exit_btn.place(x=60, y=600)
 back = Button(window, text="Back", width="30", bg=color["lilac"], activebackground=color["lightpurple"], border=0,
               highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"],
               command=back)
-back.place(x=60, y=750)
+back.place(x=60, y=700)
 window.mainloop()
