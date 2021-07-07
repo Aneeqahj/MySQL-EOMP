@@ -52,10 +52,10 @@ idnum_ent = Entry(window)
 idnum_ent.place(x=200, y=250)
 phoneNum_ent = Entry(window)
 phoneNum_ent.place(x=200, y=300)
-Nameofkin = Entry(window)
-Nameofkin.place(x=200, y=350)
-Numofkin = Entry(window)
-Numofkin.place(x=200, y=400)
+Nameofkin_ent = Entry(window)
+Nameofkin_ent.place(x=200, y=350)
+Numofkin_ent = Entry(window)
+Numofkin_ent.place(x=200, y=400)
 
 
 def exit_btn():
@@ -89,11 +89,18 @@ def register():
           "NextOfKinNumber, user_id) \n VALUES(%s,%s,%s,%s,%s,%s,%s,%s) "
     value = (
         email_ent.get(), name_ent.get(), surname_ent.get(), idnum_ent.get(),
-        phoneNum_ent.get(), Nameofkin.get(), Numofkin.get(), user_id[0])
+        phoneNum_ent.get(), Nameofkin_ent.get(), Numofkin_ent.get(), user_id[0])
     exe = mycursor.execute(sql, value)
     mydb.commit()
 
     mycursor.execute("Select * from Registration")
+
+    if surname_ent == "" or phoneNum_ent == "" or Nameofkin_ent == "" or Numofkin_ent == "":
+        messagebox.showerror("ERROR", "Please ensure that all fields are filled in.")
+    else:
+        messagebox.showinfo("Success", "your registration was successful.")
+        window.destroy()
+        import main2
 
 
 register = Button(window, text="Register", width="30", bg=color["lilac"], activebackground=color["lightpurple"],

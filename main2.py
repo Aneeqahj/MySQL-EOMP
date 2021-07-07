@@ -28,18 +28,30 @@ home_label.pack(side="right")
 # more labels
 username = Label(window, text="Username:", bg=color["lilac"], fg=color["purple"])
 username.place(x=20, y=100)
-password = Label(window, text="Password:", bg=color["lilac"], fg=color["purple"])
-password.place(x=20, y=150)
+idnum = Label(window, text="ID Number:", bg=color["lilac"], fg=color["purple"])
+idnum.place(x=20, y=150)
 
 # Entries
 username_ent = Entry(window)
 username_ent.place(x=200, y=100)
-password_ent = Entry(window, show="*")
-password_ent.place(x=200, y=150)
+idnum = Entry(window)
+idnum.place(x=200, y=150)
 
 
 def login():
-    pass
+    username = username_ent.get()
+    password = idnum.get()
+    mydb = mysql.connector.connect(user="lifechoices", password="@Lifechoices1234",
+                                   host="127.0.0.1", database="LifeChoicesOnline",
+                                   auth_plugin="mysql_native_password")
+    cursor = mydb.cursor()
+    cursor.execute("SELECT name, IDnumber FROM Registration")
+    print(cursor)
+    for i in cursor:
+        print(i)
+        if username == i[0] and password == i[1]:
+            window.destroy()
+            import success
 
 
 def exit_btn():
@@ -61,7 +73,8 @@ def back():
 
 # buttons
 login = Button(window, text="login", width="30", bg=color["lilac"], activebackground=color["lightpurple"], border=0,
-               highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"])
+               highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"],
+               command=login)
 login.place(x=60, y=350)
 
 exit_btn = Button(window, text="Exit", width="30", bg=color["lilac"], activebackground=color["lightpurple"], border=0,
