@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 from tkinter import messagebox
 import mysql.connector
 
@@ -23,6 +24,10 @@ home2_label.pack(side="left")
 
 home_label = Label(top_frame, text="LC", font="Arial 15", bg=color["purple"], fg="white", height=2, padx=20)
 home_label.pack(side="right")
+
+tv = ttk.Treeview(window)
+tv["columns"] = ("Name", "Surname")
+
 
 
 window.mainloop()

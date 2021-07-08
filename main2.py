@@ -39,6 +39,7 @@ idnum.place(x=200, y=150)
 
 
 def login():
+    msg_box = messagebox
     username = username_ent.get()
     password = idnum.get()
     mydb = mysql.connector.connect(user="lifechoices", password="@Lifechoices1234",

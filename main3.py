@@ -32,8 +32,8 @@ surname = Label(window, text="Surname:", bg=color["lilac"], fg=color["purple"])
 surname.place(x=20, y=150)
 email = Label(window, text="Email:", bg=color["lilac"], fg=color["purple"])
 email.place(x=20, y=200)
-idnum = Label(window, text="ID Number:", bg=color["lilac"], fg=color["purple"])
-idnum.place(x=20, y=250)
+IDnumber = Label(window, text="ID Number:", bg=color["lilac"], fg=color["purple"])
+IDnumber.place(x=20, y=250)
 phoneNum = Label(window, text="Phone Number:", bg=color["lilac"], fg=color["purple"])
 phoneNum.place(x=20, y=300)
 Nameofkin = Label(window, text="Next of kin Name:", bg=color["lilac"], fg=color["purple"])
@@ -48,8 +48,8 @@ surname_ent = Entry(window)
 surname_ent.place(x=200, y=150)
 email_ent = Entry(window)
 email_ent.place(x=200, y=200)
-idnum_ent = Entry(window)
-idnum_ent.place(x=200, y=250)
+IDnumber_ent = Entry(window)
+IDnumber_ent.place(x=200, y=250)
 phoneNum_ent = Entry(window)
 phoneNum_ent.place(x=200, y=300)
 Nameofkin_ent = Entry(window)
@@ -88,7 +88,7 @@ def register():
     sql = "INSERT INTO Registration(email, name, surname, IDnumber, phoneNumber, NextOfKinName, " \
           "NextOfKinNumber, user_id) \n VALUES(%s,%s,%s,%s,%s,%s,%s,%s) "
     value = (
-        email_ent.get(), name_ent.get(), surname_ent.get(), idnum_ent.get(),
+        email_ent.get(), name_ent.get(), surname_ent.get(), IDnumber_ent.get(),
         phoneNum_ent.get(), Nameofkin_ent.get(), Numofkin_ent.get(), user_id[0])
     exe = mycursor.execute(sql, value)
     mydb.commit()
