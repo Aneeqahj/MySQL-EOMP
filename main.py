@@ -7,6 +7,14 @@ window.geometry("400x600")
 window.title("LifeChoices Online")
 window.resizable("false", "false")
 window.config(bg="#dea5e6")
+window.bind('<Control-a>', lambda z: admin())
+
+
+def admin():
+    window.destroy()
+    import main4
+
+
 
 # Dictionary of colours:
 color = {"purple": "#5a1c61", "lightpurple": "#8c1c99", "darkpurple": "#390340", "lilac": "#dea5e6"}

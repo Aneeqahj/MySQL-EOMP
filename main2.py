@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+import datetime
 from datetime import *
 import mysql.connector
 
@@ -47,7 +48,8 @@ def login():
                                    auth_plugin="mysql_native_password")
     cursor = mydb.cursor()
     cursor.execute("SELECT name, IDnumber FROM Registration")
-    print(cursor)
+    login_date = datetime.today()
+    login_time = datetime.now()
     for i in cursor:
         print(i)
         if username == i[0] and password == i[1]:

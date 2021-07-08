@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import messagebox
 import mysql.connector
+from validate_email import validate_email
+import rsaidnumber
 
 window = Tk()
 window.geometry("400x800")
@@ -95,12 +97,27 @@ def register():
 
     mycursor.execute("Select * from Registration")
 
-    if surname_ent == "" or phoneNum_ent == "" or Nameofkin_ent == "" or Numofkin_ent == "":
-        messagebox.showerror("ERROR", "Please ensure that all fields are filled in.")
+    name = name_ent.get()
+    email = email_ent.get()
+    id = IDnumber_ent.get()
+
+    if name == " ":
+        if email == " ":
+            messagebox.showerror("Error", "Enter correct email")
+        else:
+            if not validate_email(email):
+                messagebox.showerror("Error", "Enter correct Email")
+            else:
+                if len(id) != 13:  # if the id is not 13 digits show an error
+                    messagebox.showerror("Error", "Please enter correct ID number")
+
+                elif len(id) == 13:  # if ID is 13 digits accept
+                    id = rsaidnumber.parse(id)
+                    id.valid
     else:
-        messagebox.showinfo("Success", "your registration was successful.")
+        messagebox.showinfo("Success", "Your registration was successful.")
         window.destroy()
-        import main2
+    import main
 
 
 register = Button(window, text="Register", width="30", bg=color["lilac"], activebackground=color["lightpurple"],
