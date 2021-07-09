@@ -37,6 +37,22 @@ password_ent = Entry(window, show="*")
 password_ent.place(x=200, y=150)
 
 
+def confirm():
+    email = email_ent.get()
+    password = password_ent.get()
+
+    mydb = mysql.connector.connect(user='lifechoices', password='@Lifechoices1234', host='127.0.0.1',
+                                   database='LifeChoicesOnline', auth_plugin='mysql_native_password')
+    mycursor = mydb.cursor()
+    xy = mycursor.execute(f"SELECT * FROM Admin WHERE email = '{email}' and password = '{password}'")
+    results = mycursor.fetchall()
+    if len(results) > 0:
+        window.destroy()
+        import main5
+    else:
+        messagebox.showerror("Error", "User is a liar")
+
+
 def back():
     msg_box = messagebox.askquestion("Return?", "Do you want to return to the home page?")
     if msg_box == "yes":
@@ -57,7 +73,8 @@ def exit_btn():
 # Buttons
 confirm = Button(window, text="confirm", width="30", bg=color["lilac"], activebackground=color["lightpurple"],
                  border=0,
-                 highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"], )
+                 highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"],
+                 command=confirm)
 confirm.place(x=60, y=300)
 back = Button(window, text="Home Page", width="30", bg=color["lilac"], activebackground=color["lightpurple"], border=0,
               highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"],

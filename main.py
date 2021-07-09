@@ -1,19 +1,19 @@
-from tkinter import *
-from tkinter import messagebox
+from tkinter import *  # importing tkinter
+from tkinter import messagebox  # importing message box
 import mysql.connector
+from PIL import Image
 
-window = Tk()
-window.geometry("400x600")
-window.title("LifeChoices Online")
-window.resizable("false", "false")
-window.config(bg="#dea5e6")
-window.bind('<Control-a>', lambda z: admin())
+window = Tk()  # creating a window
+window.geometry("400x600")  # window size
+window.title("LifeChoices Online")  # window title
+window.resizable("false", "false")  # For the window to remain at size
+window.config(bg="#dea5e6")  # background colour
+window.bind('<Control-a>', lambda z: admin())  # creating a shortcut kry for the admin page
 
 
-def admin():
-    window.destroy()
-    import main4
-
+def admin():  # creating a function for the shortcut key
+    window.destroy()  # once the shortcut key is pressed and this window will close
+    import main4  # once this window closes it will open the admin login
 
 
 # Dictionary of colours:
@@ -37,29 +37,29 @@ welcome = Label(window, text="Welcome, if you're already registered with LifeCho
 welcome.place(x=20, y=150)
 
 
-def login():
+def login():  # creating a function for the login button
     msg_box = messagebox.askquestion("Login??", "Are you sure you want to log in?")
-    if msg_box == "yes":
+    if msg_box == "yes":  # if statement so that the current window will close and another will open
         window.destroy()
         import main2
-    else:
-        messagebox.showinfo("Return", "You will now return to the home page.")
+    else:  # if you choose not to log in you will remain in this window
+        messagebox.showinfo("Return", "You will remain on the home page.")
 
 
-def register():
+def register():  # creating a function for registration
     msg_box = messagebox.askquestion("Register??", "Would you like to register with LC online?")
-    if msg_box == "yes":
+    if msg_box == "yes":  # if statement so that the current window will close and another will open
         window.destroy()
         import main3
-    else:
+    else:  # if you choose not to register in you will remain in this window
         messagebox.showinfo("Return", "You will now return to the home page.")
 
 
-def exit_btn():
+def exit_btn():  # creating a function for the exit button
     msg_box = messagebox.askquestion("Exit?", "Are you sure you want to leave this program?")
-    if msg_box == "yes":
+    if msg_box == "yes":  # if statement so that the current window will close if yes is chosen
         window.destroy()
-    else:
+    else:  # if you choose not to exit in you will remain in this window
         messagebox.showinfo("Return", "You will now return to the App", icon="warning")
 
 
@@ -79,4 +79,4 @@ exit_btn = Button(window, text="Exit", width="30", bg=color["lilac"], activeback
                   highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"],
                   command=exit_btn)
 exit_btn.place(x=60, y=550)
-window.mainloop()
+window.mainloop()  # run window
