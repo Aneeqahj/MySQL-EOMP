@@ -1,13 +1,13 @@
-from tkinter import *
+from tkinter import *  # importing tkinter
 from tkinter import ttk
-from tkinter import messagebox
-import mysql.connector
+from tkinter import messagebox  # importing messagebox
+import mysql.connector  # importing mysql.connector so i can link mysql to tkinter
 
-window = Tk()
-window.geometry("800x900")
-window.title("LifeChoices Online")
-window.resizable("false", "false")
-window.config(bg="#dea5e6")
+window = Tk()  # creating a window
+window.geometry("800x900")  # size of the window
+window.title("LifeChoices Online")  # title of the window
+window.resizable("false", "false")  # For the window to remain at size
+window.config(bg="#dea5e6")  # background colour
 
 # Dictionary of colours:
 color = {"purple": "#5a1c61", "lightpurple": "#8c1c99", "darkpurple": "#390340", "lilac": "#dea5e6", "white": "#ffffff"}
@@ -31,31 +31,33 @@ mycursor = mydb.cursor()
 xy = mycursor.execute('Select * from Login')
 
 
-def edit():
-    selected = window.focus()
+def edit():  # creating a function for the edit button
+    selected = window.focus()  # creating variable that set focus to the current window
     id = window.item(selected, 'values')[1]
     name = edit_ent.get()
     idnumber = edit_ent2.get()
     mycursor = mydb.cursor()
-    xy = mycursor.execute(f"UPDATE Login SET username = '{name}', IDnumber = '{idnumber}' WHERE user_id = '{id}';")
-    mydb.commit()
+    xy = mycursor.execute(
+        f"UPDATE Login SET username = '{name}', IDnumber = '{idnumber}' WHERE user_id = '{id}';")  # executing a command in the database
+    mydb.commit()  # committing all the transactions above
 
 
-def delete():
-    selected = window.focus()
+def delete():  # creating a function for the delete button
+    selected = window.focus()  # creating variable that set focus to the current window
     id = window.item(selected, 'values')[1]
     mycursor = mydb.cursor()
-    xy = mycursor.execute(f"DELETE FROM Login WHERE user_id = {id};")
-    mydb.commit()
+    xy = mycursor.execute(f"DELETE FROM Login WHERE user_id = {id};")  # executing a command in the database
+    mydb.commit()  # committing all the transactions above
 
 
-def add():
-    mydb = mysql.connector.connect(user="lifechoices", password="@Lifechoices1234",
+def add():  # creating an add function for add  button
+    mydb = mysql.connector.connect(user="lifechoices", password="@Lifechoices1234",  # linking the the database to
+                                   # tkinter with all relevant details
                                    host="127.0.0.1", database="LifeChoicesOnline",
                                    auth_plugin="mysql_native_password")
-    mycursor = mydb.cursor()
+    mycursor = mydb.cursor()  # creating a variable cursor  which allows row by row processing of the results
     select = "SELECT user_id FROM Login"
-    user_id = mycursor.execute(select)
+    user_id = mycursor.execute(select)  # executing a command in the database
     user_id = mycursor.fetchone()
     print(user_id[0])
 
@@ -65,9 +67,19 @@ def add():
         email_ent.get(), name_ent.get(), surname_ent.get(), IDnumber_ent.get(),
         phoneNum_ent.get(), Nameofkin_ent.get(), Numofkin_ent.get(), user_id[0])
     exe = mycursor.execute(sql, value)
-    mydb.commit()
+    mydb.commit()  # committing all the transactions above
 
-    mycursor.execute("Select * from Registration")
+    mycursor.execute("Select * from Registration")  # executing a command in the database
+
+
+def back():  # creating a function for the home page
+    msg_box = messagebox.askquestion("Return?", "Do you want to return to the home page?")
+    if msg_box == "yes":  # if statement so that the current window will close if yes is chosen and return to the home
+        # page
+        window.destroy()
+        import main
+    else:  # if you choose not to go the home page you will remain on this page
+        messagebox.showinfo("Login", "You will remain on the logout page")
 
 
 # frames
@@ -132,14 +144,15 @@ delete = Button(window, text="Delete", width="10", bg=color["lilac"], activeback
                 command=delete)
 delete.place(x=50, y=850)
 add = Button(window, text="Add", width="10", bg=color["lilac"], activebackground=color["lightpurple"], border=0,
-             highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"])
+             highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"], command=add)
 add.place(x=200, y=850)
 exit_btn = Button(window, text="Exit", width="10", bg=color["lilac"], activebackground=color["lightpurple"], border=0,
                   highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"],
-                  command=add)
+                  command=exit)
 exit_btn.place(x=350, y=850)
 back = Button(window, text="Home", width="10", bg=color["lilac"], activebackground=color["lightpurple"], border=0,
-              highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"])
+              highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"],
+              command=back)
 back.place(x=500, y=850)
 window = ttk.Treeview(window)
 

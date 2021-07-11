@@ -1,15 +1,15 @@
 from tkinter import *  # importing tkinter
-from tkinter import messagebox # importing messagebox
-import datetime #importing datetime
+from tkinter import messagebox  # importing messagebox
+import datetime  # importing datetime
 from datetime import *
-import mysql.connector # importing mysql.connector so i csn link mysql to tkinter
-from duplicity.dup_time import curtime # importing current time
+import mysql.connector  # importing mysql.connector so i csn link mysql to tkinter
+from duplicity.dup_time import curtime  # importing current time
 
-window = Tk() # creating a window
+window = Tk()  # creating a window
 window.geometry("400x600")  # size of the window
-window.title("LifeChoices Online")# title of the window
-window.resizable("false", "false") # For the window to remain at size
-window.config(bg="#dea5e6") # background colour
+window.title("LifeChoices Online")  # title of the window
+window.resizable("false", "false")  # For the window to remain at size
+window.config(bg="#dea5e6")  # background colour
 
 # Dictionary of colours:
 color = {"purple": "#5a1c61", "lightpurple": "#8c1c99", "darkpurple": "#390340", "lilac": "#dea5e6"}
@@ -40,45 +40,44 @@ idnum = Entry(window)
 idnum.place(x=200, y=150)
 
 
-def login(): # creating a function for the login
-    username = username_ent.get() # creating a variable for the username entry
-    password = idnum.get() # creating a variable for th e password entry in which the password will be the ID number
-    mydb = mysql.connector.connect(user="lifechoices", password="@Lifechoices1234", # linking the the database to
-                                   # tkinter with all relavent details
+def login():  # creating a function for the login
+    username = username_ent.get()  # creating a variable for the username entry
+    password = idnum.get()  # creating a variable for th e password entry in which the password will be the ID number
+    mydb = mysql.connector.connect(user="lifechoices", password="@Lifechoices1234",  # linking the the database to
+                                   # tkinter with all relevant details
                                    host="127.0.0.1", database="LifeChoicesOnline",
                                    auth_plugin="mysql_native_password")
-    cursor = mydb.cursor() # creating a variable cursor  which allows row by row processing of the results
-    cursor.execute("SELECT name, IDnumber FROM Registration") # executing a command
-    stuff = cursor.fetchall()
-    print(stuff)
+    cursor = mydb.cursor()  # creating a variable cursor  which allows row by row processing of the results
+    cursor.execute("SELECT name, IDnumber FROM Registration")  # executing a command in the database
+    stuff = cursor.fetchall()  # fetching everything in the database
     login_date = datetime.today()
     login_time = datetime.now()
-    print(username)
-    print(password)
-    for i in stuff:
-        print(i)
-        if username == i[0] and password == i[1]:
-            print("INSERT INTO Login (username, IDnumber) VALUES ('"+username+"', '"+password+"');")
-            cursor.execute("INSERT INTO Login (username, IDnumber, login_time) VALUES ('"+username+"', '"+password+"', curtime());")
-            mydb.commit()
-            window.destroy()
-            import success
+    for i in stuff:  # creating a for loop
+        if username == i[0] and password == i[1]:  # if the entries match the the ones in the Registration database
+            cursor.execute(
+                "INSERT INTO Login (username, IDnumber, login_time) VALUES ('" + username + "', '" + password + "', curtime());")  # execute this command by inserting into the login database
+            mydb.commit()  # committing all the transactions
+            window.destroy()  # destroying the current window
+            import success  # importing another window
+        else:  # if the above details are incorrect show an error
+            messagebox.showerror("Error", "User not found, try registering first")
 
 
-def exit_btn():
+def exit_btn():  # creating a function for the exit button
     msg_box = messagebox.askquestion("Exit?", "Are you sure you want to leave this program?")
-    if msg_box == "yes":
+    if msg_box == "yes":  # if statement so that the current window will close if yes is chosen
         window.destroy()
-    else:
+    else:  # if you choose not to exit in you will remain in this window
         messagebox.showinfo("Return", "You will now return to the App", icon="warning")
 
 
-def back():
+def back():  # creating a function for the home page
     msg_box = messagebox.askquestion("Return?", "Do you want to return to the home page?")
-    if msg_box == "yes":
+    if msg_box == "yes":  # if statement so that the current window will close if yes is chosen and return to the home
+        # page
         window.destroy()
         import main
-    else:
+    else:  # if you choose not to go the home page you will remain on this page
         messagebox.showinfo("Login", "You will remain on the login page")
 
 

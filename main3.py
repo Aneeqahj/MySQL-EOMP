@@ -1,14 +1,14 @@
-from tkinter import *
-from tkinter import messagebox
-import mysql.connector
-from validate_email import validate_email
-import rsaidnumber
+from tkinter import *  # importing tkinter
+from tkinter import messagebox  # importing messagebox
+import mysql.connector  # importing mysql.connector so i can link mysql to tkinter
+from validate_email import validate_email  # importing validate email to check if the email is valid
+import rsaidnumber  # importing rsaidnumber to check if a real ID number is given
 
-window = Tk()
-window.geometry("400x800")
-window.title("LifeChoices Online")
-window.resizable("false", "false")
-window.config(bg="#dea5e6")
+window = Tk()  # creating a window
+window.geometry("400x800")  # size of the window
+window.title("LifeChoices Online")  # title of the window
+window.resizable("false", "false")  # For the window to remain at size
+window.config(bg="#dea5e6")  # background colour
 
 # Dictionary of colours:
 color = {"purple": "#5a1c61", "lightpurple": "#8c1c99", "darkpurple": "#390340", "lilac": "#dea5e6"}
@@ -18,7 +18,8 @@ top_frame = Frame(window, bg=color["purple"])
 top_frame.pack(side="top", fill=X)
 
 # header
-home2_label = Label(top_frame, text="LifeChoices Online Registration", font="Arial 15", bg=color["purple"], fg="white",
+home2_label = Label(top_frame, text="LifeChoices Online - Registration", font="Arial 15", bg=color["purple"],
+                    fg="white",
                     height=2,
                     padx=20)
 home2_label.pack(side="left")
@@ -60,30 +61,32 @@ Numofkin_ent = Entry(window)
 Numofkin_ent.place(x=200, y=400)
 
 
-def exit_btn():
+def exit_btn():  # creating a function for the exit button
     msg_box = messagebox.askquestion("Exit?", "Are you sure you want to leave this program?")
-    if msg_box == "yes":
+    if msg_box == "yes":  # if statement so that the current window will close if yes is chosen
         window.destroy()
-    else:
+    else:  # if you choose not to exit in you will remain in this window
         messagebox.showinfo("Return", "You will now return to the App", icon="warning")
 
 
-def back():
+def back():  # creating a function for the home page
     msg_box = messagebox.askquestion("Return?", "Do you want to return to the home page?")
-    if msg_box == "yes":
+    if msg_box == "yes":  # if statement so that the current window will close if yes is chosen and return to the home
+        # page
         window.destroy()
         import main
-    else:
+    else:  # if you choose not to go the home page you will remain on this page
         messagebox.showinfo("Registration", "You will remain on the registration page")
 
 
-def register():
-    mydb = mysql.connector.connect(user="lifechoices", password="@Lifechoices1234",
+def register():  # creating a function for registration
+    mydb = mysql.connector.connect(user="lifechoices", password="@Lifechoices1234",  # linking the the database to
+                                   # tkinter with all relevant details
                                    host="127.0.0.1", database="LifeChoicesOnline",
                                    auth_plugin="mysql_native_password")
-    mycursor = mydb.cursor()
+    mycursor = mydb.cursor()  # creating a variable cursor  which allows row by row processing of the results
     select = "SELECT user_id FROM Login"
-    user_id = mycursor.execute(select)
+    user_id = mycursor.execute(select)  # executing a command in the database
     user_id = mycursor.fetchone()
     print(user_id[0])
 
@@ -92,15 +95,17 @@ def register():
     value = (
         email_ent.get(), name_ent.get(), surname_ent.get(), IDnumber_ent.get(),
         phoneNum_ent.get(), Nameofkin_ent.get(), Numofkin_ent.get(), user_id[0])
-    exe = mycursor.execute(sql, value)
-    mydb.commit()
+    print(value)
+    print(sql)
+    mycursor.execute(sql, value)
+    mydb.commit()  # committing all the transactions above
 
-    mycursor.execute("Select * from Registration")
+    mycursor.execute("Select * from Registration")  # executing a command in the database
 
-    name = name_ent.get()
+    name = name_ent.get()  # creating variables for entries
     email = email_ent.get()
     id = IDnumber_ent.get()
-
+    # creating an if statement to check if the user's details are correct
     if name == " ":
         if email == " ":
             messagebox.showerror("Error", "Enter correct email")

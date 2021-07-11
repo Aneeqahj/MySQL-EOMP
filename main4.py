@@ -1,12 +1,12 @@
-from tkinter import *
-from tkinter import messagebox
-import mysql.connector
+from tkinter import *  # importing tkinter
+from tkinter import messagebox  # importing messagebox
+import mysql.connector  # importing mysql.connector so i can link mysql to tkinter
 
-window = Tk()
-window.geometry("400x600")
-window.title("LifeChoices Online")
-window.resizable("false", "false")
-window.config(bg="#dea5e6")
+window = Tk()  # creating a window
+window.geometry("400x600")  # size of the window
+window.title("LifeChoices Online")  # title of the window
+window.resizable("false", "false")  # For the window to remain at size
+window.config(bg="#dea5e6")  # background colour
 
 # Dictionary of colours:
 color = {"purple": "#5a1c61", "lightpurple": "#8c1c99", "darkpurple": "#390340", "lilac": "#dea5e6"}
@@ -37,36 +37,43 @@ password_ent = Entry(window, show="*")
 password_ent.place(x=200, y=150)
 
 
-def confirm():
+def confirm():  # creating a function to confirm details entered
+    # creating variable for the entries
     email = email_ent.get()
     password = password_ent.get()
 
     mydb = mysql.connector.connect(user='lifechoices', password='@Lifechoices1234', host='127.0.0.1',
+                                   # linking the the database to
+                                   # tkinter with all relevant details
                                    database='LifeChoicesOnline', auth_plugin='mysql_native_password')
-    mycursor = mydb.cursor()
-    xy = mycursor.execute(f"SELECT * FROM Admin WHERE email = '{email}' and password = '{password}'")
-    results = mycursor.fetchall()
+    mycursor = mydb.cursor()  # creating a variable cursor  which allows row by row processing of the results
+    xy = mycursor.execute(
+        f"SELECT * FROM Admin WHERE email = '{email}' and password = '{password}'")  # executing a command in the
+    # database
+    results = mycursor.fetchall()  # fetching everything in the database
     if len(results) > 0:
         window.destroy()
         import main5
     else:
-        messagebox.showerror("Error", "User is a liar")
+        messagebox.showerror("Error", "User details are incorrect")
 
 
-def back():
+def back():  # creating a function for the home page
     msg_box = messagebox.askquestion("Return?", "Do you want to return to the home page?")
-    if msg_box == "yes":
+    if msg_box == "yes":  # if statement so that the current window will close if yes is chosen and return to the home
+        # page
         window.destroy()
         import main
-    else:
+    else:  # if you choose not to go the home page you will remain on this page
         messagebox.showinfo("Login", "You will remain on the admin page")
 
 
-def exit_btn():
+def exit_btn():  # creating a function for the exit button
     msg_box = messagebox.askquestion("Exit?", "Are you sure you want to leave this program?")
-    if msg_box == "yes":
+    if msg_box == "yes":  # if statement so that the current window will close if yes is chosen and return to the home
+        # page
         window.destroy()
-    else:
+    else:  # if you choose not to go the home page you will remain on this page
         messagebox.showinfo("Return", "You will now return to the App", icon="warning")
 
 

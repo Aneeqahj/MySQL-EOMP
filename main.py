@@ -55,6 +55,15 @@ def register():  # creating a function for registration
         messagebox.showinfo("Return", "You will now return to the home page.")
 
 
+def logout():  # creating a function for the logout button
+    msg_box = messagebox.askquestion("Are you sure", "Do you want to logout?")
+    if msg_box == "yes":  # if statement so that the current window will close and another will open
+        window.destroy()
+        import main6
+    else:  # if you choose not to logout in you will remain in this window
+        messagebox.showinfo("Remain", "You will remain on this page.")
+
+
 def exit_btn():  # creating a function for the exit button
     msg_box = messagebox.askquestion("Exit?", "Are you sure you want to leave this program?")
     if msg_box == "yes":  # if statement so that the current window will close if yes is chosen
@@ -67,13 +76,19 @@ def exit_btn():  # creating a function for the exit button
 login = Button(window, text="login", width="30", bg=color["lilac"], activebackground=color["lightpurple"], border=0,
                highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"],
                command=login)
-login.place(x=60, y=350)
+login.place(x=60, y=250)
 
 register = Button(window, text="Register", width="30", bg=color["lilac"], activebackground=color["lightpurple"],
                   border=0,
                   highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"],
                   command=register)
-register.place(x=60, y=450)
+register.place(x=60, y=350)
+
+logout = Button(window, text="Logout", width="30", bg=color["lilac"], activebackground=color["lightpurple"],
+                border=0,
+                highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"],
+                command=logout)
+logout.place(x=60, y=450)
 
 exit_btn = Button(window, text="Exit", width="30", bg=color["lilac"], activebackground=color["lightpurple"], border=0,
                   highlightbackground=color["darkpurple"], fg=color["purple"], activeforeground=color["purple"],
