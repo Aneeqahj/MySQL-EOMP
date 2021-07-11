@@ -73,6 +73,14 @@ def add():  # creating an add function for add  button
 
     mycursor.execute("Select * from Registration")  # executing a command in the database
 
+    email_ent.delete(0, END)
+    name_ent.delete(0, END)
+    surname_ent.delete(0, END)
+    IDnumber_ent.delete(0, END)
+    phoneNum_ent.delete(0, END)
+    Nameofkin_ent.delete(0, END)
+    Numofkin_ent.delete(0, END)
+
 
 def back():  # creating a function for the home page
     msg_box = messagebox.askquestion("Return?", "Do you want to return to the home page?")
@@ -81,7 +89,7 @@ def back():  # creating a function for the home page
         window.destroy()
         import main
     else:  # if you choose not to go the home page you will remain on this page
-        messagebox.showinfo("Login", "You will remain on the logout page")
+        messagebox.showinfo("Login", "You will remain on the admin page")
 
 
 # frames
