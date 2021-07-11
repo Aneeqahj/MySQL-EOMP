@@ -84,14 +84,15 @@ def register():  # creating a function for registration
                                    # tkinter with all relevant details
                                    host="127.0.0.1", database="LifeChoicesOnline",
                                    auth_plugin="mysql_native_password")
-    mycursor = mydb.cursor()  # creating a variable cursor  which allows row by row processing of the results
+    mycursor = mydb.cursor(buffered=True)  # creating a variable cursor  which allows row by row processing of the
+    # results
     select = "SELECT user_id FROM Login"
     user_id = mycursor.execute(select)  # executing a command in the database
     user_id = mycursor.fetchone()
     print(user_id[0])
 
-    sql = "INSERT INTO Registration(email, name, surname, IDnumber, phoneNumber, NextOfKinName, " \
-          "NextOfKinNumber, user_id) \n VALUES(%s,%s,%s,%s,%s,%s,%s,%s) "
+    sql = "INSERT INTO Registration (email, name, surname, IDnumber, phoneNumber, NextOfKinName, " \
+          "NextOfKinNumber, user_id) \n VALUES (%s,%s,%s,%s,%s,%s,%s,%s) "
     value = (
         email_ent.get(), name_ent.get(), surname_ent.get(), IDnumber_ent.get(),
         phoneNum_ent.get(), Nameofkin_ent.get(), Numofkin_ent.get(), user_id[0])
@@ -105,8 +106,7 @@ def register():  # creating a function for registration
     name = name_ent.get()  # creating variables for entries
     email = email_ent.get()
     id = IDnumber_ent.get()
-    # creating an if statement to check if the user's details are correct
-    if name == " ":
+    if name == " ":  # creating an if statement to check if the user's details are correct
         if email == " ":
             messagebox.showerror("Error", "Enter correct email")
         else:

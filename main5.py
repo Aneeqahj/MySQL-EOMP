@@ -38,7 +38,8 @@ def edit():  # creating a function for the edit button
     idnumber = edit_ent2.get()
     mycursor = mydb.cursor()
     xy = mycursor.execute(
-        f"UPDATE Login SET username = '{name}', IDnumber = '{idnumber}' WHERE user_id = '{id}';")  # executing a command in the database
+        f"UPDATE Login SET username = '{name}', IDnumber = '{idnumber}' WHERE user_id = '{id}';")  # executing a
+    # command in the database
     mydb.commit()  # committing all the transactions above
 
 
@@ -55,7 +56,8 @@ def add():  # creating an add function for add  button
                                    # tkinter with all relevant details
                                    host="127.0.0.1", database="LifeChoicesOnline",
                                    auth_plugin="mysql_native_password")
-    mycursor = mydb.cursor()  # creating a variable cursor  which allows row by row processing of the results
+    mycursor = mydb.cursor(buffered=True)  # creating a variable cursor  which allows row by row processing of the
+    # results
     select = "SELECT user_id FROM Login"
     user_id = mycursor.execute(select)  # executing a command in the database
     user_id = mycursor.fetchone()
