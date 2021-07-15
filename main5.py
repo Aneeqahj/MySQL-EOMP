@@ -31,7 +31,8 @@ mycursor = mydb.cursor()
 xy = mycursor.execute('Select * from Login')
 
 
-def edit():  # creating a function for the edit button
+def edit():  # creating a function for the edit button (This works but only once you close and rerun will you see the
+    # edit)
     selected = window.focus()  # creating variable that set focus to the current window
     id = window.item(selected, 'values')[1]
     name = edit_ent.get()
@@ -41,9 +42,12 @@ def edit():  # creating a function for the edit button
         f"UPDATE Login SET username = '{name}', IDnumber = '{idnumber}' WHERE user_id = '{id}';")  # executing a
     # command in the database
     mydb.commit()  # committing all the transactions above
+    edit_ent.delete(0, END)
+    edit_ent2.delete(0, END)
 
 
-def delete():  # creating a function for the delete button
+def delete():  # creating a function for the delete button(This works but only once you close and rerun will you see
+    # the delete)
     selected = window.focus()  # creating variable that set focus to the current window
     id = window.item(selected, 'values')[1]
     mycursor = mydb.cursor()
@@ -72,13 +76,12 @@ def add():  # creating an add function for add  button
     mydb.commit()  # committing all the transactions above
 
     mycursor.execute("Select * from Registration")  # executing a command in the database
-
     email_ent.delete(0, END)
     name_ent.delete(0, END)
     surname_ent.delete(0, END)
     IDnumber_ent.delete(0, END)
-    phoneNum_ent.delete(0, END)
     Nameofkin_ent.delete(0, END)
+    phoneNum_ent.delete(0, END)
     Numofkin_ent.delete(0, END)
 
 
